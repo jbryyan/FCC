@@ -1,2 +1,2 @@
 # FCC
-FreeCodeCamp
+Completed front-end development projects.
