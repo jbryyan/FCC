@@ -1,8 +1,34 @@
-var url = "https://fcc-weather-api.glitch.me/api/current?lat=";//lat=35&lon=139";
+//Note the use of two API's used in this file.
+//The reason for this is to practice working with different API's.
+
+var url = "https://fcc-weather-api.glitch.me/api/current?lat=";
 console.log(typeof(url));
 var xhr = new XMLHttpRequest();
+
 var x = document.getElementById("location");
 var lon, lat;
+
+
+//Displays city location using google geocode API
+function displayLocation(latitude, longitude){
+  var request = new XMLHttpRequest();
+  var method = "GET";
+  var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true";
+  var async = true;
+
+  request.open(method, url, async);
+  request.onload = function(){
+    if(request.readyState == 4 && request.status == 200){
+      var addrData = JSON.parse(request.responseText);
+      var cityName = addrData.results[0].address_components[2].long_name;
+      console.log(cityName);
+      document.getElementById("location").innerHTML = cityName;
+    }
+  };
+  request.send();
+}
+
+
 
 //Function used to get latitude/longitude with geolocation
 function getLocation(){
@@ -10,7 +36,9 @@ function getLocation(){
   function success(position){
     lon = position.coords.longitude;
     lat = position.coords.latitude;
-    //With updated long/lat values, grab weather API data.
+    //Update HTML with current user city using Google geocode map API
+    displayLocation(lat, lon);
+    //With updated long/lat values, grab weather API data using FCC Weather API
     getWeather();
   }
 
@@ -29,10 +57,16 @@ function getWeather(){
   //When finished loading data, parse the data then change temperature in index.html to appropriate value
   xhr.onload = function(){
     var apiData = JSON.parse(xhr.responseText);
-    document.getElementById("temp").innerHTML = apiData.main.temp + "Temperature";
-  }
+    console.log(apiData);
+    //document.getElementById("location").innerHTML = apiData.main.
+    document.getElementById("temp").innerHTML = apiData.main.temp + "&deg; C";
+    document.getElementById("status").innerHTML = apiData.weather[0].main;
+    //var elem = document.createElement("img");
+    //elem.setAttribute("src", apiData.weather[0].icon);
+    //document.getElementById("imgPlace").appendChild(elem);
+  };
   xhr.send();
 }
 
-//First thing that should be done is get long/lat with html5 geolocation
+//Grab lat/long using HTML5 geolocation.
 getLocation();
