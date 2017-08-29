@@ -4,16 +4,13 @@ var xhr = new XMLHttpRequest();
 var x = document.getElementById("location");
 var lon, lat;
 
-
+//Function used to get latitude/longitude with geolocation
 function getLocation(){
 
   function success(position){
-    console.log(position);
-    typeof(position.coords.latitude);
     lon = position.coords.longitude;
     lat = position.coords.latitude;
-    //url = url + lat + lon;
-    console.log("In getLocation, the url is: " + url);
+    //With updated long/lat values, grab weather API data.
     getWeather();
   }
 
@@ -24,22 +21,18 @@ function getLocation(){
   if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(success, failure);
   }
-
 }
 
+//Function used to load weather API data and change appropriate values in index.html
 function getWeather(){
-  console.log(url);
   xhr.open("GET", url + lat + "&lon=" + lon, true);
-  console.log(url);
+  //When finished loading data, parse the data then change temperature in index.html to appropriate value
   xhr.onload = function(){
-    console.log("In onload function");
-    console.log(xhr.responseText);
     var apiData = JSON.parse(xhr.responseText);
-    console.log(apiData.main.temp);
     document.getElementById("temp").innerHTML = apiData.main.temp + "Temperature";
   }
   xhr.send();
 }
 
-console.log(url);
+//First thing that should be done is get long/lat with html5 geolocation
 getLocation();
