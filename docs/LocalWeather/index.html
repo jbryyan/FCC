@@ -11,25 +11,28 @@
   </head>
 
   <body>
-    <div class="pageHeader">
-      <h1>Local Weather</h1>
-    </div>
+
     <div id="page">
-      <div class="pageBox">
-        <div class="loc">
+      <div class="pageHeader">
+        <h1>Local Weather</h1>
+      </div>
+      <!-- Main body of page -->
+      <div class="mainData">
+        <div class="city">
+          <p>City</P>
           <p id="location"></p>
         </div>
-        <div class="pageBox">
+        <div id="imgPlace" class="statusImg">
+          <p id="status"></p>
+        </div>
+        <div class="temperature">
+          <p>Temperature</p>
           <p id="temp"></p>
         </div>
-        <div id="imgPlace" class="pageBox">
-          <p id="status"></p>
-
+        <!--Made By-->
+        <div class="madeBy">
         </div>
-      </div>
-      <div class="madeBy">
-      </div>
-    </div>
+      </div> <!-- End Weather Data -->
+    </div> <!-- End Page -->
   </body>
-
 </html>

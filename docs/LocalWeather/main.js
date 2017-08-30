@@ -61,7 +61,10 @@ function getWeather(){
     //document.getElementById("location").innerHTML = apiData.main.
     document.getElementById("temp").innerHTML = apiData.main.temp + "&deg; C";
     document.getElementById("status").innerHTML = apiData.weather[0].main;
-    //var elem = document.createElement("img");
+    var src = document.getElementById("imgPlace");
+    var img = document.createElement("img");
+    img.src = apiData.weather[0].icon;
+    src.appendChild(img);
     //elem.setAttribute("src", apiData.weather[0].icon);
     //document.getElementById("imgPlace").appendChild(elem);
   };
