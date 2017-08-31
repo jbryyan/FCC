@@ -2,12 +2,14 @@
 //The reason for this is to practice working with different API's.
 
 var url = "https://fcc-weather-api.glitch.me/api/current?lat=";
+
 console.log(typeof(url));
 var xhr = new XMLHttpRequest();
 
 var x = document.getElementById("location");
 var lon, lat;
-
+var zipCode;
+var weatherIcon;
 
 //Displays city location using google geocode API
 function displayLocation(latitude, longitude){
@@ -28,7 +30,36 @@ function displayLocation(latitude, longitude){
   request.send();
 }
 
+//Geocodes city name with zip code. Wrote seperate function to see functionality.
+//Could have implemented within the top function that uses lat/lng values.
+function zipCodeLoc(){
+  alert("Im in function");
+  var zipCodeNum = document.getElementById("zipInput").value;
+  if(zipCodeNum == ""){
+    alert("Enter a valid zip code");
+    return;
+  }
+  var url = "https://maps.googleapis.com/maps/api/geocode/json?address=high+st+hasting&components=postal_code:" + zipCodeNum;
+  var request = new XMLHttpRequest();
+  var method = "GET";
+  var async = true;
+  request.open(method, url, async);
+  request.onload = function(){
+    if(request.readyState == 4 && request.status == 200){
+      var zipData = JSON.parse(request.responseText);
+      var cityName = zipData.results[0].address_components[1].long_name;
+      lat = zipData.results[0].geometry.location.lat;
+      lon = zipData.results[0].geometry.location.lng;
+      console.log(lat);
+      document.getElementById("location").innerHTML = cityName;
+      getWeather(lat, lon);
+    }
+  };
+  request.send();
+  //Grabbing latitude and longitude using google geocode api
+  document.getElementById("zipInput").value="";
 
+}
 
 //Function used to get latitude/longitude with geolocation
 function getLocation(){
@@ -57,12 +88,15 @@ function getWeather(){
   //When finished loading data, parse the data then change temperature in index.html to appropriate value
   xhr.onload = function(){
     var apiData = JSON.parse(xhr.responseText);
-    console.log(apiData);
     //document.getElementById("location").innerHTML = apiData.main.
+    console.log(apiData);
     document.getElementById("temp").innerHTML = apiData.main.temp + "&deg; C";
+
     document.getElementById("status").innerHTML = apiData.weather[0].main;
     var src = document.getElementById("imgPlace");
     var img = document.createElement("img");
+    console.log(apiData.weather[0]);
+    console.log(apiData.weather[0].icon);
     img.src = apiData.weather[0].icon;
     src.appendChild(img);
     //elem.setAttribute("src", apiData.weather[0].icon);
@@ -70,6 +104,8 @@ function getWeather(){
   };
   xhr.send();
 }
+
+
 
 //Grab lat/long using HTML5 geolocation.
 getLocation();
