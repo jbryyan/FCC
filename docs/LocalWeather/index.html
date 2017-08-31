@@ -8,15 +8,13 @@
     <title>Local Weather</title>
     <meta name="viewport" content="initial-scale=1">
     <script type="text/javascript" src="main.js"></script>
-
   </head>
 
   <body>
-
     <div id="page">
-      <div class="pageHeader">
-        <h1>Local Weather</h1>
-      </div>
+
+      <h1>Local Weather</h1>
+
       <!-- Main body of page -->
       <div class="mainData">
         <div class="city">
@@ -30,8 +28,12 @@
           <p>Temperature</p>
           <p id="temp"></p>
         </div>
-        <!--Made By-->
-        <div class="madeBy">
+        <!--Zip Code-->
+        </br>
+        <div class="zipCode">
+          <input type="text" id="zipInput" placeholder="Enter ZIP Code"/>
+
+          <input id="zipButton" type="button" value="Local Weather" onclick="zipCodeLoc();"/>
         </div>
       </div> <!-- End Weather Data -->
     </div> <!-- End Page -->
