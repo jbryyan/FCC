@@ -80,7 +80,6 @@ function getLocation(){
     navigator.geolocation.getCurrentPosition(success, failure);
   }
 }
-
 //Function used to load weather API data and change appropriate values in index.html
 function getWeather(){
   xhr.open("GET", url + lat + "&lon=" + lon, true);
