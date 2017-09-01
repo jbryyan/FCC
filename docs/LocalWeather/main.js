@@ -80,6 +80,7 @@ function getLocation(){
     navigator.geolocation.getCurrentPosition(success, failure);
   }
 }
+
 //Function used to load weather API data and change appropriate values in index.html
 function getWeather(){
   xhr.open("GET", url + lat + "&lon=" + lon, true);
@@ -93,7 +94,9 @@ function getWeather(){
     console.log(apiData);
     document.getElementById("temp").innerHTML = apiData.main.temp + "&deg; C";
     document.getElementById("status").innerHTML = apiData.weather[0].main;
+
     console.log(time.getHours());
+
     if(time.getHours() > 15){
       alert("It's night");
       body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)"
@@ -113,14 +116,6 @@ function getWeather(){
       img.src = apiData.weather[0].icon;
       src.appendChild(img);
     }
-    //var src = document.getElementById("imgPlace");
-    //var img = document.createElement("img");
-    //console.log(apiData.weather[0]);
-    //console.log(apiData.weather[0].icon);
-    //img.src = apiData.weather[0].icon;
-    //src.appendChild(img);
-    //elem.setAttribute("src", apiData.weather[0].icon);
-    //document.getElementById("imgPlace").appendChild(elem);
   };
   xhr.send();
 }
