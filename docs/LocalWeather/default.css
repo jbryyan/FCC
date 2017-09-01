@@ -3,6 +3,7 @@ body{
   /* background-color: #DCDBD9; */
   font: normal 100% Cambria, Georgia, serif;
   min-height: 100%;
+  /* By Default, loading sunny image */
   background-image: url("https://res.cloudinary.com/dsusc7zii/image/upload/v1504164867/rachel-lees-267186_x5wvvo.jpg");
   /* Background img is centered vertically and horizontally */
   background-position: center center;

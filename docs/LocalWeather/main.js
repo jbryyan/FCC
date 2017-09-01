@@ -91,6 +91,7 @@ function getWeather(){
     var src = document.getElementById("imgPlace");
     var time = new Date();
     var body = document.getElementsByTagName('body')[0];
+    var timeNow = time.getHours();
     console.log(apiData);
     document.getElementById("temp").innerHTML = apiData.main.temp + "&deg; C";
     document.getElementById("status").innerHTML = apiData.weather[0].main;
@@ -98,7 +99,7 @@ function getWeather(){
     console.log(time.getHours());
 
     //If night, and not raining.
-    if(time.getHours() > 15 || time.getHours() < 6){
+    if( timeNow > 15 || timeNow < 6){
       body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
       document.getElementById("header").style.color = "white";
     }
