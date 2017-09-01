@@ -89,13 +89,22 @@ function getWeather(){
     var apiData = JSON.parse(xhr.responseText);
     //document.getElementById("location").innerHTML = apiData.main.
     var src = document.getElementById("imgPlace");
-
+    var time = new Date();
+    var body = document.getElementsByTagName('body')[0];
     console.log(apiData);
     document.getElementById("temp").innerHTML = apiData.main.temp + "&deg; C";
     document.getElementById("status").innerHTML = apiData.weather[0].main;
 
+    if(time.getHours() > 15){
+      alert("It's night");
+      body.style.backgroundImage = "url(http://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)"
+      document.getElementById("header").style.color = "white";
+    }
+
+
     if(document.getElementById("img")){
       if(apiData.weather[0].icon === undefined){
+        alert("Returning");
         return;
       }else{
         document.getElementById("img").src = apiData.weather[0].icon;
