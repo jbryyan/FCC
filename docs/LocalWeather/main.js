@@ -99,7 +99,7 @@ function getWeather(){
 
     if(time.getHours() > 15){
       alert("It's night");
-      body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)"
+      body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
       document.getElementById("header").style.color = "white";
     }
 
