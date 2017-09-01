@@ -97,12 +97,16 @@ function getWeather(){
 
     console.log(time.getHours());
 
-    if(time.getHours() > 15){
-      alert("It's night");
+    //If night, and not raining.
+    if(time.getHours() > 15 || time.getHours() < 6){
       body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
       document.getElementById("header").style.color = "white";
     }
 
+    //If not clear, regardless of time.
+    if(apiData.weather[0].main == "Clouds"){
+      body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164873/dmitry-sytnik-25017_cwal0n.jpg)";
+    }
 
     if(document.getElementById("img")){
       if(apiData.weather[0].icon === undefined){

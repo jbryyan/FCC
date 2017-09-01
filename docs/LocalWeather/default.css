@@ -25,8 +25,7 @@ h1{
 #page{
   width: 90%;
   height: 100%;
-  margin: 3px auto;
-  border: 1px solid blue;
+  margin: auto;
 }
 
 .mainData{
