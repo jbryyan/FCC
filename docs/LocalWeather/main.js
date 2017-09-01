@@ -94,7 +94,7 @@ function getWeather(){
     console.log(apiData);
     document.getElementById("temp").innerHTML = apiData.main.temp + "&deg; C";
     document.getElementById("status").innerHTML = apiData.weather[0].main;
-
+    console.log(time.getHours());
     if(time.getHours() > 15){
       alert("It's night");
       body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)"
