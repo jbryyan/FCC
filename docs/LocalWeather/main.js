@@ -33,7 +33,6 @@ function displayLocation(latitude, longitude){
 //Geocodes city name with zip code. Wrote seperate function to see functionality.
 //Could have implemented within the top function that uses lat/lng values.
 function zipCodeLoc(){
-  alert("Im in function");
   var zipCodeNum = document.getElementById("zipInput").value;
   if(zipCodeNum == ""){
     alert("Enter a valid zip code");
@@ -89,16 +88,29 @@ function getWeather(){
   xhr.onload = function(){
     var apiData = JSON.parse(xhr.responseText);
     //document.getElementById("location").innerHTML = apiData.main.
+    var src = document.getElementById("imgPlace");
+
     console.log(apiData);
     document.getElementById("temp").innerHTML = apiData.main.temp + "&deg; C";
-
     document.getElementById("status").innerHTML = apiData.weather[0].main;
-    var src = document.getElementById("imgPlace");
-    var img = document.createElement("img");
-    console.log(apiData.weather[0]);
-    console.log(apiData.weather[0].icon);
-    img.src = apiData.weather[0].icon;
-    src.appendChild(img);
+
+    if(document.getElementById("img")){
+      if(apiData.weather[0].icon === undefined){
+        return;
+      }else{
+        document.getElementById("img").src = apiData.weather[0].icon;
+      }
+    }else{
+      var img = document.createElement("img");
+      img.src = apiData.weather[0].icon;
+      src.appendChild(img);
+    }
+    //var src = document.getElementById("imgPlace");
+    //var img = document.createElement("img");
+    //console.log(apiData.weather[0]);
+    //console.log(apiData.weather[0].icon);
+    //img.src = apiData.weather[0].icon;
+    //src.appendChild(img);
     //elem.setAttribute("src", apiData.weather[0].icon);
     //document.getElementById("imgPlace").appendChild(elem);
   };
