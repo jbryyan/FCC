@@ -62,7 +62,7 @@ function zipCodeLoc(){
     };
   }else{
     //City name was entered.
-    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=Manula" + inputData;
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + inputData;
     request.open(method, url, async);
     request.onload = function(){
       if(request.readyState == 4 && request.status == 200){
