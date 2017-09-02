@@ -49,7 +49,7 @@ function zipCodeLoc(){
     request.onload = function(){
       if(request.readyState == 4 && request.status == 200){
         var zipData = JSON.parse(request.responseText);
-        var cityName = zipData.results[0].address_components[0].long_name;
+        var cityName = zipData.results[0].address_components[1].long_name;
         lat = zipData.results[0].geometry.location.lat;
         lon = zipData.results[0].geometry.location.lng;
         console.log(lat);
