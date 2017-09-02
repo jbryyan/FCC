@@ -9,7 +9,6 @@ var xhr = new XMLHttpRequest();
 var x = document.getElementById("location");
 var lon, lat;
 var zipCode;
-var weatherIcon;
 
 //Displays city location using google geocode API
 function displayLocation(latitude, longitude){
@@ -33,27 +32,60 @@ function displayLocation(latitude, longitude){
 //Geocodes city name with zip code. Wrote seperate function to see functionality.
 //Could have implemented within the top function that uses lat/lng values.
 function zipCodeLoc(){
-  var zipCodeNum = document.getElementById("zipInput").value;
-  if(zipCodeNum == ""){
-    alert("Enter a valid zip code");
-    return;
-  }
-  var url = "https://maps.googleapis.com/maps/api/geocode/json?address=high+st+hasting&components=postal_code:" + zipCodeNum;
+  var inputData = document.getElementById("zipInput").value;
   var request = new XMLHttpRequest();
   var method = "GET";
   var async = true;
-  request.open(method, url, async);
-  request.onload = function(){
-    if(request.readyState == 4 && request.status == 200){
-      var zipData = JSON.parse(request.responseText);
-      var cityName = zipData.results[0].address_components[1].long_name;
-      lat = zipData.results[0].geometry.location.lat;
-      lon = zipData.results[0].geometry.location.lng;
-      console.log(lat);
-      document.getElementById("location").innerHTML = cityName;
-      getWeather(lat, lon);
-    }
-  };
+
+  if(inputData == ""){
+    alert("Enter a valid zip code or city");
+    return;
+  }
+  //Checking to see if zip code was entered.
+  if(/^\d+$/.test(inputData)){
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=high+st+hasting&components=postal_code:" + inputData;
+    //Following code is used to request location from google API
+    request.open(method, url, async);
+    request.onload = function(){
+      if(request.readyState == 4 && request.status == 200){
+        var zipData = JSON.parse(request.responseText);
+        var cityName = zipData.results[0].address_components[0].long_name;
+        lat = zipData.results[0].geometry.location.lat;
+        lon = zipData.results[0].geometry.location.lng;
+        console.log(lat);
+        document.getElementById("location").innerHTML = cityName;
+        getWeather(lat, lon);
+      }
+      else{
+        alert("Could not find city.")
+      }
+    };
+  }else{
+    //City name was entered.
+    var url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + inputData;
+    request.open(method, url, async);
+    request.onload = function(){
+      if(request.readyState == 4 && request.status == 200){
+        var cityData = JSON.parse(request.responseText);
+        if(cityData.status === "ZERO_RESULTS"){
+          alert("Enter valid city");
+          return;
+        }
+        else{
+          var cityName = cityData.results[0].address_components[0].long_name;
+          lat = cityData.results[0].geometry.location.lat;
+          lon = cityData.results[0].geometry.location.lng;
+          document.getElementById("location").innerHTML = cityName;
+          getWeather(lat, lon);
+        }
+      }
+      else{
+        alert("Could not find city.")
+      }
+    };
+
+  }
+
   request.send();
   //Grabbing latitude and longitude using google geocode api
   document.getElementById("zipInput").value="";
@@ -73,7 +105,7 @@ function getLocation(){
   }
 
   function failure(position){
-    alert("Use Zip Code");
+    return;
   }
 
   if(navigator.geolocation){
@@ -87,45 +119,54 @@ function getWeather(){
   //When finished loading data, parse the data then change temperature in index.html to appropriate value
   xhr.onload = function(){
     var apiData = JSON.parse(xhr.responseText);
-    //document.getElementById("location").innerHTML = apiData.main.
-    var src = document.getElementById("imgPlace");
+    //Variable used to determine time of day for proper background picture.
     var time = new Date();
+    //Varibale to change background picture
     var body = document.getElementsByTagName('body')[0];
+    //To determine current time
     var timeNow = time.getHours();
-    console.log(apiData);
-    document.getElementById("temp").innerHTML = apiData.main.temp + "&deg; C";
-    document.getElementById("status").innerHTML = apiData.weather[0].main;
+    var weatherStatus = apiData.weather[0].main;
 
-    console.log(time.getHours());
+    //*** Updating webpage ***//
+    //Updating status data
+    document.getElementById("status").innerHTML = weatherStatus;
+    //Updating temperature data
+    document.getElementById("temp").innerHTML = apiData.main.temp;
+    document.getElementById("convert").value = "\u00B0" + "C/" + "\u00B0" + "F";
 
-    //If night, and not raining.
-    if( timeNow > 15 || timeNow < 6){
+    //*** Upadting background image ***//
+    //If night, and not raining. Set night background.
+    if( (timeNow > 18 || timeNow < 6) && weatherStatus == "Clear"){
       body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
       document.getElementById("header").style.color = "white";
     }
 
-    //If not clear, regardless of time.
-    if(apiData.weather[0].main == "Clouds"){
+    //If not clear, regardless of time. Set cloudy background.
+    if(weatherStatus != "Clear"){
       body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164873/dmitry-sytnik-25017_cwal0n.jpg)";
     }
 
-    if(document.getElementById("img")){
-      if(apiData.weather[0].icon === undefined){
-        alert("Returning");
-        return;
-      }else{
-        document.getElementById("img").src = apiData.weather[0].icon;
-      }
-    }else{
-      var img = document.createElement("img");
-      img.src = apiData.weather[0].icon;
-      src.appendChild(img);
-    }
   };
   xhr.send();
 }
 
-
+//Function used to convert from celsius -> fahrenheit and vice-versa.
+function degConvert(){
+  var currentNotation = document.getElementById("convert").value;
+  var currentTemp = document.getElementById("temp").innerHTML;
+  var fahrTemp, celsTemp;
+  //It's currently in celsius. Convert to fahrenheit.
+  if(currentNotation == ("\u00B0" + "C/" + "\u00B0" + "F") ){
+    fahrTemp = (currentTemp * (9/5) + 32).toFixed(2);
+    document.getElementById("temp").innerHTML = fahrTemp;
+    document.getElementById("convert").value = "\u00B0" + "F/" + "\u00B0" + "C";
+  }else{
+    //Convert to celsius.
+    celsTemp = ((currentTemp - 32)/1.8).toFixed(2);
+    document.getElementById("temp").innerHTML = celsTemp;
+    document.getElementById("convert").value = "\u00B0" + "C/" + "\u00B0" + "F";
+  }
+}
 
 //Grab lat/long using HTML5 geolocation.
 getLocation();

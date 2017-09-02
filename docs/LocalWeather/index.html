@@ -17,16 +17,20 @@
           <p id="location"></p>
         </div> <!-- End Location -->
         <div id="imgPlace" class="statusImg">
+          <p>Status</p>
           <p id="status"></p>
         </div>  <!-- End Status Image -->
         <div class="temperature">
           <p>Temperature</p>
-          <p id="temp"></p>
+          <div class="degree">
+            <p id="temp">32</p>
+            <input id="convert" type="button" value="&deg;" onclick="degConvert();"/>
+          </div>
         </div>  <!-- End Temperature -->
         </br>
       </div> <!-- End Weather Data -->
       <div class="zipCode">
-        <input type="text" id="zipInput" placeholder="Enter ZIP Code"/>
+        <input type="text" id="zipInput" placeholder="City Name or Zip Code"/>
         <input id="zipButton" type="button" value="Local Weather" onclick="zipCodeLoc();"/>
       </div> <!-- End Zip Code -->
     </div> <!-- End Page -->
