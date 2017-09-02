@@ -76,6 +76,7 @@ function zipCodeLoc(){
           lat = cityData.results[0].geometry.location.lat;
           lon = cityData.results[0].geometry.location.lng;
           document.getElementById("location").innerHTML = cityName;
+          getDateTime();
           getWeather(lat, lon);
         }
       }
@@ -87,21 +88,20 @@ function zipCodeLoc(){
   }
 
   request.send();
-  //Grabbing latitude and longitude using google geocode api
   document.getElementById("zipInput").value="";
 
 }
 
 //Function used to get latitude/longitude with geolocation
 function getLocation(){
-
   function success(position){
     lon = position.coords.longitude;
     lat = position.coords.latitude;
     //Update HTML with current user city using Google geocode map API
     displayLocation(lat, lon);
     //With updated long/lat values, grab weather API data using FCC Weather API
-    getWeather();
+    getDateTime();
+    //getWeather();
   }
 
   function failure(position){
@@ -113,18 +113,50 @@ function getLocation(){
   }
 }
 
+//Using Google Timezone API to get city date and time
+function getDateTime(){
+  var targetDate = new Date();  //Current date/time of user
+  var timeStamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60; //Current UTC date/time
+  var url = "https://maps.googleapis.com/maps/api/timezone/json?location="+ lat + "," + lon + "&timestamp=" + timeStamp;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.onload = function(){
+    if(xhr.status === 200){
+      var timeZoneData = JSON.parse(xhr.responseText);
+      if (timeZoneData.status == "OK"){
+        var offsets = timeZoneData.dstOffset * 1000 + timeZoneData.rawOffset * 1000;
+        var localDate = new Date(timeStamp * 1000 + offsets);
+        console.log(localDate.toLocaleString());
+        console.log(localDate);
+        document.getElementById("localTime").innerHTML = localDate.toLocaleString();
+        getWeather(localDate.toLocaleString());
+
+      }
+    }
+    else{
+      alert("Request failed. Returned status of" + xhr.status);
+    }
+  };
+  xhr.send();
+}
+
 //Function used to load weather API data and change appropriate values in index.html
-function getWeather(){
+function getWeather(localTime){
+
+  //*** Getting time of day, whether AM or PM, along with the hour
+  var dayNight, timeHour;
+  dayNight = localTime.substr(localTime.length - 2, localTime.length - 1);  //Gives either AM or PM
+  timeHour = localTime.substr(0, localTime.indexOf(":"));
+  timeHour = timeHour.substr(timeHour.indexOf(",") + 1);
+
+  //*** Opening google API ***//
   xhr.open("GET", url + lat + "&lon=" + lon, true);
+
   //When finished loading data, parse the data then change temperature in index.html to appropriate value
   xhr.onload = function(){
     var apiData = JSON.parse(xhr.responseText);
-    //Variable used to determine time of day for proper background picture.
-    var time = new Date();
-    //Varibale to change background picture
     var body = document.getElementsByTagName('body')[0];
-    //To determine current time
-    var timeNow = time.getHours();
     var weatherStatus = apiData.weather[0].main;
 
     //*** Updating webpage ***//
@@ -134,35 +166,59 @@ function getWeather(){
     document.getElementById("temp").innerHTML = apiData.main.temp;
     document.getElementById("convert").value = "\u00B0" + "C/" + "\u00B0" + "F";
 
-    //*** Upadting background image ***//
-    //If night, and not raining. Set night background.
-    if( (timeNow > 18 || timeNow < 6) && weatherStatus == "Clear"){
-      body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
-      document.getElementById("header").style.color = "white";
+    //*** Updating background image ***//
+    if( ( (dayNight === "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Smoke"){
+      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504388184/dominik-lange-41376_whmjsc.jpg)";
     }
-
-    //If not clear, regardless of time. Set cloudy background.
-    if(weatherStatus != "Clear"){
-      body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164873/dmitry-sytnik-25017_cwal0n.jpg)";
+    else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clouds" ){
+      document.body.style.backgroundImage = "url(http://res.cloudinary.com/dsusc7zii/image/upload/v1504392612/kristopher-kinsinger-29252_fod9fq.jpg)";
+      changeTextColor();
+    }
+    else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clear"){
+      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164867/rachel-lees-267186_x5wvvo.jpg)";
+    }
+    else if( ( (dayNight == "AM" && timeHour < 6) || (dayNight == "PM" && timeHour > 6) ) && weatherStatus == "Clear"){
+      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
+    }
+    else if( weatherStatus == "Rain"){
+      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504392615/veriret-248718_pgxv5f.jpg)";
+    }
+    else if( weatherStatus == "Thunderstorm"){
+      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504323736/dominik-qn-45994_pn5ak5.jpg)";
     }
 
   };
   xhr.send();
+  //*** Upadting background image
+  //If night, and not raining. Set night background.
+  /*
+  if( (timeNow > 18 || timeNow < 6) && weatherStatus == "Clear"){
+    if()
+    body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
+    document.getElementById("header").style.color = "white";
+  }
+  //If not clear, regardless of time. Set cloudy background.
+  alert(timeNow);
+  if((timeNow < 18 && timeNow > 5)){
+    body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164873/dmitry-sytnik-25017_cwal0n.jpg)";
+  }
+  else if(weatherStatus == "Rainy"){
+    body.style.backgroundImage
+  }*/
 }
 
 //Function used to convert from celsius -> fahrenheit and vice-versa.
-//Github not showing correctly..
 function degConvert(){
   var currentNotation = document.getElementById("convert").value;
   var currentTemp = document.getElementById("temp").innerHTML;
   var fahrTemp, celsTemp;
-  //It's currently in celsius. Convert to fahrenheit.
+  //If currently in celsius. Convert to fahrenheit.
   if(currentNotation == ("\u00B0" + "C/" + "\u00B0" + "F") ){
     fahrTemp = (currentTemp * (9/5) + 32).toFixed(2);
     document.getElementById("temp").innerHTML = fahrTemp;
     document.getElementById("convert").value = "\u00B0" + "F/" + "\u00B0" + "C";
   }else{
-    //Convert to celsius.
+    //Else Convert to celsius.
     celsTemp = ((currentTemp - 32)/1.8).toFixed(2);
     document.getElementById("temp").innerHTML = celsTemp;
     document.getElementById("convert").value = "\u00B0" + "C/" + "\u00B0" + "F";

@@ -76,13 +76,13 @@ h1{
   font-size: .7em;
   background-color: transparent;
   border-color: none;
-  color: white;
-  text-shadow: 1px 1px 1px black;
+  color: black;
+  text-shadow: 1px 1px 1px white;
 }
 
 #location, #status, #temp{
-  color: white;
-  text-shadow: 1px 1px 1px black;
+  color: black;
+  text-shadow: 1px 1px 1px white;
 }
 
 #zipInput{
