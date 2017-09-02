@@ -62,7 +62,7 @@ function zipCodeLoc(){
     };
   }else{
     //City name was entered.
-    var url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + inputData;
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=Manula" + inputData;
     request.open(method, url, async);
     request.onload = function(){
       if(request.readyState == 4 && request.status == 200){
@@ -151,6 +151,7 @@ function getWeather(){
 }
 
 //Function used to convert from celsius -> fahrenheit and vice-versa.
+//Github not showing correctly..
 function degConvert(){
   var currentNotation = document.getElementById("convert").value;
   var currentTemp = document.getElementById("temp").innerHTML;
