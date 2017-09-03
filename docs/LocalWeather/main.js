@@ -166,22 +166,46 @@ function getWeather(localTime){
 
       //*** Updating background image ***//
       if(weatherStatus == "Smoke"){
+        if(screen.width < 900){
+          document.body.style.backgroundImage = "url(http://res.cloudinary.com/dsusc7zii/image/upload/c_scale,w_900/v1504388184/dominik-lange-41376_whmjsc.jpg)";
+        }else{
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504388184/dominik-lange-41376_whmjsc.jpg)";
+        }
       }
       else if(weatherStatus == "Clouds"){
+        if(screen.width < 900){
+          document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/c_scale,w_900/v1504392612/kristopher-kinsinger-29252_fod9fq.jpg)";
+        }else{
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504392612/kristopher-kinsinger-29252_fod9fq.jpg)";
+        }
       }
       else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clear"){
+        if(screen.width < 900){
+          document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/c_scale,w_900/v1504164867/rachel-lees-267186_x5wvvo.jpg)";
+        }else{
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164867/rachel-lees-267186_x5wvvo.jpg)";
+        }
       }
       else if( ( (dayNight == "AM" && timeHour < 6) || (dayNight == "PM" && timeHour > 6) ) && weatherStatus == "Clear"){
+        if(screen.width < 900){
+          document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/c_scale,w_900/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
+        }else{
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
+        }
       }
       else if( weatherStatus == "Rain"){
+        if(screen.width < 900){
+          document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/c_scale,w_900/v1504392615/veriret-248718_pgxv5f.jpg)";
+        }else{
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504392615/veriret-248718_pgxv5f.jpg)";
+        }
       }
       else if( weatherStatus == "Thunderstorm"){
+        if(screen.width < 900){
+          document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/c_scale,w_900/v1504323736/dominik-qn-45994_pn5ak5.jpg)";
+        }else{
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504323736/dominik-qn-45994_pn5ak5.jpg)";
+        }
       }
     }
     else{
