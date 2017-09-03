@@ -167,7 +167,7 @@ function getWeather(localTime){
       //*** Updating background image ***//
       if(weatherStatus == "Smoke"){
         if(screen.width < 900){
-          document.body.style.backgroundImage = "url(http://res.cloudinary.com/dsusc7zii/image/upload/c_scale,w_900/v1504388184/dominik-lange-41376_whmjsc.jpg)";
+          document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/c_scale,w_900/v1504388184/dominik-lange-41376_whmjsc.jpg)";
         }else{
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504388184/dominik-lange-41376_whmjsc.jpg)";
         }
