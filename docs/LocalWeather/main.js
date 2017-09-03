@@ -25,6 +25,9 @@ function displayLocation(latitude, longitude){
       console.log(cityName);
       document.getElementById("location").innerHTML = cityName;
     }
+    else{
+      alert("Request failed. Returned status of: " + request.status);
+    }
   };
   request.send();
 }
@@ -155,38 +158,42 @@ function getWeather(localTime){
 
   //When finished loading data, parse the data then change temperature in index.html to appropriate value
   xhr.onload = function(){
-    var apiData = JSON.parse(xhr.responseText);
-    var body = document.getElementsByTagName('body')[0];
-    var weatherStatus = apiData.weather[0].main;
+    if(xhr.status == 200){
+      var apiData = JSON.parse(xhr.responseText);
+      var body = document.getElementsByTagName('body')[0];
+      var weatherStatus = apiData.weather[0].main;
 
-    //*** Updating webpage ***//
-    //Updating status data
-    document.getElementById("status").innerHTML = weatherStatus;
-    //Updating temperature data
-    document.getElementById("temp").innerHTML = apiData.main.temp;
-    document.getElementById("convert").value = "\u00B0" + "C/" + "\u00B0" + "F";
+      //*** Updating webpage ***//
+      //Updating status data
+      document.getElementById("status").innerHTML = weatherStatus;
+      //Updating temperature data
+      document.getElementById("temp").innerHTML = apiData.main.temp;
+      document.getElementById("convert").value = "\u00B0" + "C/" + "\u00B0" + "F";
 
-    //*** Updating background image ***//
-    if( ( (dayNight === "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Smoke"){
-      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504388184/dominik-lange-41376_whmjsc.jpg)";
+      //*** Updating background image ***//
+      if( ( (dayNight === "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Smoke"){
+        document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504388184/dominik-lange-41376_whmjsc.jpg)";
+      }
+      else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clouds" ){
+        document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504392612/kristopher-kinsinger-29252_fod9fq.jpg)";
+        changeTextColor();
+      }
+      else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clear"){
+        document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164867/rachel-lees-267186_x5wvvo.jpg)";
+      }
+      else if( ( (dayNight == "AM" && timeHour < 6) || (dayNight == "PM" && timeHour > 6) ) && weatherStatus == "Clear"){
+        document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
+      }
+      else if( weatherStatus == "Rain"){
+        document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504392615/veriret-248718_pgxv5f.jpg)";
+      }
+      else if( weatherStatus == "Thunderstorm"){
+        document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504323736/dominik-qn-45994_pn5ak5.jpg)";
+      }
     }
-    else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clouds" ){
-      document.body.style.backgroundImage = "url(http://res.cloudinary.com/dsusc7zii/image/upload/v1504392612/kristopher-kinsinger-29252_fod9fq.jpg)";
-      changeTextColor();
+    else{
+      alert("Request failed. Returned status of" + xhr.status);
     }
-    else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clear"){
-      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164867/rachel-lees-267186_x5wvvo.jpg)";
-    }
-    else if( ( (dayNight == "AM" && timeHour < 6) || (dayNight == "PM" && timeHour > 6) ) && weatherStatus == "Clear"){
-      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
-    }
-    else if( weatherStatus == "Rain"){
-      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504392615/veriret-248718_pgxv5f.jpg)";
-    }
-    else if( weatherStatus == "Thunderstorm"){
-      document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504323736/dominik-qn-45994_pn5ak5.jpg)";
-    }
-
   };
   xhr.send();
   //*** Upadting background image
