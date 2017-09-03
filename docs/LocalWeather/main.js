@@ -137,6 +137,7 @@ function getDateTime(){
         console.log(localDate.toLocaleString());
         console.log(localDate);
         document.getElementById("localTime").innerHTML = localDate.toLocaleString();
+        alert("This is the type of localDate: " + typeof(localDate.toLocaleString()));
         getWeather(localDate.toLocaleString());
 
       }
@@ -150,10 +151,12 @@ function getDateTime(){
 
 //Function used to load weather API data and change appropriate values in index.html
 function getWeather(localTime){
+  alert("This is the type of localTime when passed into getWeather function: " + typeof(localTime));
   alert("IM in local time function." + "This is the local time: " + localTime);
   //*** Getting time of day, whether AM or PM, along with the hour
   var dayNight, timeHour;
   dayNight = localTime.substr(localTime.length - 2, localTime.length - 1);  //Gives either AM or PM
+  alert("This is dayNight and the type it is: " + dayNight + "type: " + typeof(dayNight));
   timeHour = localTime.substr(0, localTime.indexOf(":"));
   timeHour = timeHour.substr(timeHour.indexOf(",") + 1);
 
