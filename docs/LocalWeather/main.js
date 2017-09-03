@@ -118,6 +118,7 @@ function getLocation(){
 
 //Using Google Timezone API to get city date and time
 function getDateTime(){
+  alert("Getting local date info");
   var targetDate = new Date();  //Current date/time of user
   var timeStamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60; //Current UTC date/time
   var url = "https://maps.googleapis.com/maps/api/timezone/json?location="+ lat + "," + lon + "&timestamp=" + timeStamp;
@@ -126,7 +127,10 @@ function getDateTime(){
   xhr.open("GET", url, true);
   xhr.onload = function(){
     if(xhr.status === 200){
+      alert("onload date timezone sucess");
       var timeZoneData = JSON.parse(xhr.responseText);
+      console.log(timeZoneData);
+      alert(timeZoneData.status);
       if (timeZoneData.status == "OK"){
         var offsets = timeZoneData.dstOffset * 1000 + timeZoneData.rawOffset * 1000;
         var localDate = new Date(timeStamp * 1000 + offsets);
@@ -146,7 +150,7 @@ function getDateTime(){
 
 //Function used to load weather API data and change appropriate values in index.html
 function getWeather(localTime){
-
+  alert("IM in local time function." + "This is the local time: " + localTime);
   //*** Getting time of day, whether AM or PM, along with the hour
   var dayNight, timeHour;
   dayNight = localTime.substr(localTime.length - 2, localTime.length - 1);  //Gives either AM or PM
@@ -176,7 +180,6 @@ function getWeather(localTime){
       }
       else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clouds" ){
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504392612/kristopher-kinsinger-29252_fod9fq.jpg)";
-        changeTextColor();
       }
       else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clear"){
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164867/rachel-lees-267186_x5wvvo.jpg)";
