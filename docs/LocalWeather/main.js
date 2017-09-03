@@ -51,8 +51,10 @@ function zipCodeLoc(){
     request.open(method, url, async);
     request.onload = function(){
       if(request.readyState == 4 && request.status == 200){
+        alert("I'm in zip code status request. It's good");
         var zipData = JSON.parse(request.responseText);
         var cityName = zipData.results[0].address_components[1].long_name;
+        alert("This is the city name" + cityName);
         lat = zipData.results[0].geometry.location.lat;
         lon = zipData.results[0].geometry.location.lng;
         console.log(lat);
