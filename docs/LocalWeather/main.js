@@ -57,16 +57,19 @@ function zipCodeLoc(){
         alert("This is the city name" + cityName);
         lat = zipData.results[0].geometry.location.lat;
         lon = zipData.results[0].geometry.location.lng;
-        console.log(lat);
+        alert("This is lat and lon after zip code: Lat: " + lat + " long: " + lon);
         document.getElementById("location").innerHTML = cityName;
         getDateTime();
         getWeather(lat, lon);
       }
       else{
-        alert("Could not find city.")
+        alert("Could not find city.");
+        return;
       }
     };
-  }else{
+    request.send();
+  }
+  else{
     //City name was entered.
     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + inputData;
     request.open(method, url, async);
@@ -83,17 +86,15 @@ function zipCodeLoc(){
           lon = cityData.results[0].geometry.location.lng;
           document.getElementById("location").innerHTML = cityName;
           getDateTime();
-          getWeather(lat, lon);
+          //getWeather(lat, lon);
         }
       }
       else{
         alert("Could not find city.")
       }
     };
-
+    request.send();
   }
-
-  request.send();
   document.getElementById("zipInput").value="";
 
 }
