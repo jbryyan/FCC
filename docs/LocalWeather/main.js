@@ -60,7 +60,7 @@ function zipCodeLoc(){
         alert("This is lat and lon after zip code: Lat: " + lat + " long: " + lon);
         document.getElementById("location").innerHTML = cityName;
         getDateTime();
-        getWeather(lat, lon);
+        //getWeather(lat, lon);
       }
       else{
         alert("Could not find city.");
@@ -142,6 +142,7 @@ function getDateTime(){
         console.log(localDate);
         document.getElementById("localTime").innerHTML = localDate.toLocaleString();
         alert("This is the type of localDate: " + typeof(localDate.toLocaleString()));
+        alert("This is the value: " + localDate.toLocaleString());
         getWeather(localDate.toLocaleString());
 
       }
