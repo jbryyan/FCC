@@ -142,11 +142,12 @@ h1{
     font-size: 2em; /* 24px / 16px */
   }
   .mainData{
-    font-size: 1.5em;
+    font-size: 1em;
   }
   .city, .temperature, .statusImg{
     display: block;
     float: none;
     width: 100%;
   }
+
 }

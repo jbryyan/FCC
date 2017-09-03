@@ -3,7 +3,6 @@
 
 var url = "https://fcc-weather-api.glitch.me/api/current?lat=";
 
-console.log(typeof(url));
 var xhr = new XMLHttpRequest();
 
 var x = document.getElementById("location");
