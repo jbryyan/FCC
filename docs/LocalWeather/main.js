@@ -22,7 +22,6 @@ function displayLocation(latitude, longitude){
     if(request.readyState == 4 && request.status == 200){
       var addrData = JSON.parse(request.responseText);
       var cityName = addrData.results[0].address_components[2].long_name;
-      console.log(cityName);
       document.getElementById("location").innerHTML = cityName;
     }
     else{
@@ -51,16 +50,12 @@ function zipCodeLoc(){
     request.open(method, url, async);
     request.onload = function(){
       if(request.readyState == 4 && request.status == 200){
-        alert("I'm in zip code status request. It's good");
         var zipData = JSON.parse(request.responseText);
         var cityName = zipData.results[0].address_components[1].long_name;
-        alert("This is the city name" + cityName);
         lat = zipData.results[0].geometry.location.lat;
         lon = zipData.results[0].geometry.location.lng;
-        alert("This is lat and lon after zip code: Lat: " + lat + " long: " + lon);
         document.getElementById("location").innerHTML = cityName;
         getDateTime();
-        //getWeather(lat, lon);
       }
       else{
         alert("Could not find city.");
@@ -86,7 +81,6 @@ function zipCodeLoc(){
           lon = cityData.results[0].geometry.location.lng;
           document.getElementById("location").innerHTML = cityName;
           getDateTime();
-          //getWeather(lat, lon);
         }
       }
       else{
@@ -122,7 +116,6 @@ function getLocation(){
 
 //Using Google Timezone API to get city date and time
 function getDateTime(){
-  alert("Getting local date info");
   var targetDate = new Date();  //Current date/time of user
   var timeStamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60; //Current UTC date/time
   var url = "https://maps.googleapis.com/maps/api/timezone/json?location="+ lat + "," + lon + "&timestamp=" + timeStamp;
@@ -131,18 +124,11 @@ function getDateTime(){
   xhr.open("GET", url, true);
   xhr.onload = function(){
     if(xhr.status === 200){
-      alert("onload date timezone sucess");
       var timeZoneData = JSON.parse(xhr.responseText);
-      console.log(timeZoneData);
-      alert(timeZoneData.status);
       if (timeZoneData.status == "OK"){
         var offsets = timeZoneData.dstOffset * 1000 + timeZoneData.rawOffset * 1000;
         var localDate = new Date(timeStamp * 1000 + offsets);
-        console.log(localDate.toLocaleString());
-        console.log(localDate);
         document.getElementById("localTime").innerHTML = localDate.toLocaleString();
-        alert("This is the type of localDate: " + typeof(localDate.toLocaleString()));
-        alert("This is the value: " + localDate.toLocaleString());
         getWeather(localDate.toLocaleString());
 
       }
@@ -156,12 +142,9 @@ function getDateTime(){
 
 //Function used to load weather API data and change appropriate values in index.html
 function getWeather(localTime){
-  alert("This is the type of localTime when passed into getWeather function: " + typeof(localTime));
-  alert("IM in local time function." + "This is the local time: " + localTime);
   //*** Getting time of day, whether AM or PM, along with the hour
   var dayNight, timeHour;
   dayNight = localTime.substr(localTime.length - 2, localTime.length - 1);  //Gives either AM or PM
-  alert("This is dayNight and the type it is: " + dayNight + "type: " + typeof(dayNight));
   timeHour = localTime.substr(0, localTime.indexOf(":"));
   timeHour = timeHour.substr(timeHour.indexOf(",") + 1);
 
@@ -183,10 +166,10 @@ function getWeather(localTime){
       document.getElementById("convert").value = "\u00B0" + "C/" + "\u00B0" + "F";
 
       //*** Updating background image ***//
-      if( ( (dayNight === "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Smoke"){
+      if(weatherStatus == "Smoke"){
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504388184/dominik-lange-41376_whmjsc.jpg)";
       }
-      else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clouds" ){
+      else if(weatherStatus == "Clouds"){
         document.body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504392612/kristopher-kinsinger-29252_fod9fq.jpg)";
       }
       else if( ( (dayNight == "AM" && timeHour > 5) || (dayNight == "PM" && timeHour < 7) ) && weatherStatus == "Clear"){
@@ -207,22 +190,6 @@ function getWeather(localTime){
     }
   };
   xhr.send();
-  //*** Upadting background image
-  //If night, and not raining. Set night background.
-  /*
-  if( (timeNow > 18 || timeNow < 6) && weatherStatus == "Clear"){
-    if()
-    body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164866/sam-mcjunkin-38078_kfevhy.jpg)";
-    document.getElementById("header").style.color = "white";
-  }
-  //If not clear, regardless of time. Set cloudy background.
-  alert(timeNow);
-  if((timeNow < 18 && timeNow > 5)){
-    body.style.backgroundImage = "url(https://res.cloudinary.com/dsusc7zii/image/upload/v1504164873/dmitry-sytnik-25017_cwal0n.jpg)";
-  }
-  else if(weatherStatus == "Rainy"){
-    body.style.backgroundImage
-  }*/
 }
 
 //Function used to convert from celsius -> fahrenheit and vice-versa.
