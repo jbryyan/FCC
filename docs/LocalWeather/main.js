@@ -57,6 +57,7 @@ function zipCodeLoc(){
         lon = zipData.results[0].geometry.location.lng;
         console.log(lat);
         document.getElementById("location").innerHTML = cityName;
+        getDateTime();
         getWeather(lat, lon);
       }
       else{
