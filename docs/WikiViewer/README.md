@@ -2,5 +2,5 @@
 ##Utilizes
 * HTML
 * CSS
-* JS
+* JS <br />
 [Wikipedia Viewer](https://jbryyan.github.io/FCC/LocalWeather)

@@ -1,4 +1,4 @@
-#Folder used to store all completed web pages.
+# Folder used to store all completed web pages.
 
 * [Local Weather App](https://jbryyan.github.io/FCC/LocalWeather/)
 
