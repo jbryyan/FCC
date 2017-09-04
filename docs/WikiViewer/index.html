@@ -1,2 +1,15 @@
-<h1>Wiki Viewer</h1>
-<h2>Atom push Test<h2>
+<!DOCTYPE html>
+<link rel="stylesheet" href="default.css"/>
+<html>
+  <head>
+    <title>WIkipedia Article Viewer</title>
+    <script type="text/javascript" src="main.js"></script>
+  <body>
+    <div class="wikiBox" id="wikiBox">
+      <header class="wikiHeader">WIKIPEDIA</header>
+      <input class="searchInput" id="searchInput" type="text" placeholder="Search Wikipedia" />
+      <input class="buttons" id="searchButton" type="button" value="Search" onclick="searchWiki();"/>
+      <input class="buttons" id="randomButton" type="button" value="Random Article" onclick="resetStyle();"/>
+    </div>
+  </body>
+</html>
