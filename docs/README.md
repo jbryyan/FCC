@@ -2,4 +2,4 @@
 
 * [Local Weather App](https://jbryyan.github.io/FCC/LocalWeather/)
 
-* [Wikipedia Viewer](https://github.com/jbryyan/FCC/tree/master/docs/WikiViewer)
+* [Wikipedia Viewer](https://jbryyan.github.io/FCC/WikiViewer/)
