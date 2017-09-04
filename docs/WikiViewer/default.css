@@ -1,29 +1,49 @@
+body{
+  background-color: #f1f1f1;
+}
+
 .wikiBox{
   position: absolute;
   top: 0; bottom: 0; left: 0; right: 0;
   margin: auto;
-  width: 100%;
+  max-width: 100%;
   height: 200px;
-  background-color: grey;
+  background-color: #a6a6a6;
   text-align: center;
   padding: 1em;
+  border: 1px solid black;
 }
 .wikiHeader{
   font-size: 3.125em;  /* 50px / 16px */
 }
 .searchInput{
   margin: 2.5em auto 1em auto;
-  height: 16.67%; /* 30px / ? */
+  /*height: 16.67%;  30px / ? */
+  height: 30px; /* 30px/81px */
+  /*max-width: 100%; */
+  border: 1px solid black;
 }
 
 .buttons{
-  height: 19.44%; /* 35px / ? */
+  /*height: 19.44%;  35px / ? */
+  height: 35px;
+  /*max-width: 100%;*/
+  border: 1px solid black;
 }
 
 .wikiData{
   width: 80%;
   height: 100%;
-  border: 1px solid red;
   margin-left: auto;
   margin-right: auto;
+}
+
+.searchLink{
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.searchInfo{
+  font-size: 20px;
 }

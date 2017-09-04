@@ -2,14 +2,16 @@
 <link rel="stylesheet" href="default.css"/>
 <html>
   <head>
-    <title>WIkipedia Article Viewer</title>
+    <title>Wikipedia Article Viewer</title>
     <script type="text/javascript" src="main.js"></script>
   <body>
     <div class="wikiBox" id="wikiBox">
       <header class="wikiHeader">WIKIPEDIA</header>
-      <input class="searchInput" id="searchInput" type="text" placeholder="Search Wikipedia" />
-      <input class="buttons" id="searchButton" type="button" value="Search" onclick="searchWiki();"/>
-      <input class="buttons" id="randomButton" type="button" value="Random Article" onclick="resetStyle();"/>
+      
+        <input class="searchInput" id="searchInput" type="text" placeholder="Search Wikipedia" required>
+        <input class="buttons" id="searchButton" type="submit" value="Search" onclick="searchWiki();">
+        <input class="buttons" id="randomButton" type="button" value="Random Article" onclick="resetStyle();">
+
     </div>
   </body>
 </html>
