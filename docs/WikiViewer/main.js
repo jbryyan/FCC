@@ -18,7 +18,7 @@ function changeStyle(){
 
   //Changing element styles. Will move landing page div up to the top of page.
   wikiBox.style.margin = 0;
-  wikiBox.style.height = "85px";
+  wikiBox.style.height = "120px";
   wikiBox.style.position = "fixed";
   searchInput.style.margin = 0;
 
