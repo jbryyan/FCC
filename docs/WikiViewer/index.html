@@ -6,12 +6,13 @@
     <script type="text/javascript" src="main.js"></script>
   <body>
     <div class="wikiBox" id="wikiBox">
-      <header class="wikiHeader">WIKIPEDIA</header>
-      
-        <input class="searchInput" id="searchInput" type="text" placeholder="Search Wikipedia" required>
-        <input class="buttons" id="searchButton" type="submit" value="Search" onclick="searchWiki();">
-        <input class="buttons" id="randomButton" type="button" value="Random Article" onclick="resetStyle();">
+      <header class="wikiHeader" id="wikiHeader">WIKIPEDIA</header>
 
+      <form onsubmit="searchWiki(); return false;">
+        <input class="searchInput" id="searchInput" type="text" placeholder="Search Wikipedia" required>
+        <input class="buttons" id="searchButton" type="submit" value="Search">
+        <input class="buttons" id="randomButton" type="button" value="Random Article" onclick="randomArticle();">
+      </form>
     </div>
   </body>
 </html>

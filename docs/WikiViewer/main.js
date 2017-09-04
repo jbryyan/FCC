@@ -1,30 +1,28 @@
 
 function changeStyle(){
   //Variables used to change html element styles
-
   var wikiBox = document.getElementById("wikiBox");
+  var wikiHeader = document.getElementById("wikiHeader");
   var searchInput = document.getElementById("searchInput");
   var searchButton = document.getElementById("searchButton");
   var randomButton = document.getElementById("randomButton");
+  var arrowSpan = document.createElement("span");
+
+  //Adding left arrow to return to landing page.
+  arrowSpan.id = "arrowSpan";
+  arrowSpan.innerHTML = "&larr;";
+  arrowSpan.addEventListener("click", function(e){
+    resetStyle();
+  }, false);
+  wikiHeader.appendChild(arrowSpan);
 
   //Changing element styles. Will move landing page div up to the top of page.
   wikiBox.style.margin = 0;
   wikiBox.style.height = "85px";
   wikiBox.style.position = "fixed";
-
-  //searchInput.style.height = (30/85)*100 + "%";  //30px / wikiBox.clientHeight
   searchInput.style.margin = 0;
-  //searchButton.style.height = (35/85)*100 + "%"; //35px / wikiBox.clientHeight
-  //randomButton.style.height = (35/85)*100 + "%";
 
-/*
-  var wikiBox = document.getElementById("wikiBox");
-  var formBox = document.getElementById("formBox");
-
-  wikiBox.style.margin = 0;
-  wikiBox.style.height = "85px";
-  wikiBox.style.position = "fixed";
-  formBox.style.margin = "1222px;"*/
+  //Clear input value after searching
 
 }
 
@@ -32,9 +30,7 @@ function changeStyle(){
 function resetStyle(){
   document.querySelector("#wikiBox").removeAttribute("style");
   document.getElementById("searchInput").removeAttribute("style");
-  document.getElementById("searchButton").removeAttribute("style");
-  document.getElementById("randomButton").removeAttribute("style");
-
+  document.getElementById("arrowSpan").remove();
   if(document.getElementById("wikiData")){
     document.getElementById("wikiData").remove();
   }
@@ -58,6 +54,7 @@ function populateDiv(t, c, l){
   var title = t;
   var content = c;
   var link = l;
+  var searchInput = document.getElementById("searchInput");
 
   console.log(title);
   for(i = 0; i < title.length; i++){
@@ -65,6 +62,7 @@ function populateDiv(t, c, l){
     var wikiPar = document.createElement("p");
     //Setting up link to the wiki article
     wikiLink.className = "searchLink";
+    wikiLink.target = "_blank";
     wikiLink.href = link[i];
     wikiLink.textContent = title[i];
     //Setting up the wiki info retrieved
@@ -73,6 +71,8 @@ function populateDiv(t, c, l){
     document.getElementById("wikiData").appendChild(wikiLink);
     document.getElementById("wikiData").appendChild(wikiPar);
   }
+  //Clearing search input after populating div.
+  searchInput.value = "";
 }
 
 //Function used to depopulate wikiData for the next search.
@@ -111,10 +111,11 @@ function readResponse(response){
 
 }
 
+function randomArticle(){
+  window.open("https://en.wikipedia.org/wiki/Special:Random","_blank");
+}
 //When search button is clicked..
 function searchWiki(){
-
-
 
   //If the div for the wiki info is not set, it means it's still in landing page.
   if(!document.getElementById("wikiData")){
@@ -137,4 +138,5 @@ function searchWiki(){
   script.src = src;
   script.id = "wikiScript";
   document.body.appendChild(script);
+
 }

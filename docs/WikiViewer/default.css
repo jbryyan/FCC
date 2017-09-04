@@ -1,6 +1,13 @@
 body{
   background-color: #f1f1f1;
 }
+span{
+  float: left;
+  font-size: 80px;
+  margin-top: -12px;
+  cursor: pointer;
+  color: blue;
+}
 
 .wikiBox{
   position: absolute;
@@ -32,7 +39,7 @@ body{
 }
 
 .wikiData{
-  width: 80%;
+  width: 50%;
   height: 100%;
   margin-left: auto;
   margin-right: auto;
