@@ -27,12 +27,14 @@ function searchTwitch(){
     }
   };
   xhr.send();
-
 }
 
+//Will hide divs that the user did not search for.
+function searchStreamer(){
+  
+}
 //This function is solely used to search streamers that are submitted by the user.
 function getJSON2(streamer){
-  console.log("In JSON2");
   var streamerName = streamer;
   var xhr = new XMLHttpRequest;
   var method = "GET"
@@ -50,10 +52,16 @@ function getJSON2(streamer){
         //Else, user is offline.
         if(streamData.stream){
           num++;
+          if(num > 0){
+            document.getElementById("searchBar").style.display = "block";
+          }
           defaultValue = 0;
           createDivs(streamData, "streams");
         }else {
           num++;
+          if(num > 0){
+            document.getElementById("searchBar").style.display = "block";
+          }
           defaultValue = 0;
           console.log(streamerName + "sr");
           offlineStreamer(streamerName);
@@ -67,6 +75,9 @@ function getJSON2(streamer){
 
 //Runs on loading the page. JSON API call
 function defaultJSON(){
+  if(num < 1){
+    document.getElementById("searchBar").style.display = "none";
+  }
   var xhr = new XMLHttpRequest;
   var method = "GET"
   var url = "https://wind-bow.glitch.me/twitch-api/streams/" + defaultName;
@@ -111,8 +122,11 @@ function defaultStreamer(streamData, endPoint){
   }
 
   //Changed background color to online. (green)
-  document.getElementById("preLoad").style.backgroundColor = "#3CB371";
-
+  if(endPoint == "channels"){
+    document.getElementById("preLoad").style.backgroundColor = "#d3d3d3";
+  }else{
+    document.getElementById("preLoad").style.backgroundColor = "#3CB371";
+  }
 
   //Appends streamer logo.
   var a = document.createElement("a");
@@ -133,6 +147,7 @@ function defaultStreamer(streamData, endPoint){
 
   //Appends game playing and description status
   document.getElementById("desc0").innerHTML = game + status;
+  eventListener();
 }
 
 //This function uses the "channels" twitch tv endpoint. Correctly gives offline twitch tv user info.
@@ -179,21 +194,24 @@ function createDivs(streamData, endPoint){
   var url = data.url;
   var title = data.display_name;
 
-  //Overall hierarchy: Main Container[Sub Container, Sub container, Sub container]
+  //Overall hierarchy: Main Container[Sub Container, Sub container, Sub container, Sub container]
   /*Main container along with container cells*/
   var divMain = document.getElementById("mainContainer");
   var divContainer = document.createElement("div");
   var divImg = document.createElement("div");
   var divTitle = document.createElement("div");
   var divDesc = document.createElement("div");
+  var divExit = document.createElement("div");
 
   /*Individual elements in each container*/
   var image = document.createElement("img");
   var anchor = document.createElement("a");
   var para = document.createElement("p");
+  var btn = document.createElement("button");
 
   /*Nested div class names and id's*/
   divContainer.className = "streamContainer streamMod";
+  divContainer.id = "divCont" + num;
   if(endPoint == "channels"){
     divContainer.style.backgroundColor = "#d3d3d3";
   }else{
@@ -204,6 +222,10 @@ function createDivs(streamData, endPoint){
   divTitle.className = "titleContainer tableMod";
   divTitle.id = "titleContainer" + num;
   divDesc.className = "descContainer tableMod";
+  divExit.className = "exitDiv";
+
+  btn.className = "exitBtn";
+  btn.id= "btn" + num;
 
   /*Nested element classes and id's*/
   image.className = "image";
@@ -223,6 +245,7 @@ function createDivs(streamData, endPoint){
   anchor.href = url;     //Appending href="streamer url"
   anchor.innerHTML = title;
   para.innerHTML = status;
+  btn.innerHTML = "x";
 
   //Putting it all together.
   divMain.appendChild(divContainer);
@@ -232,6 +255,9 @@ function createDivs(streamData, endPoint){
   divTitle.appendChild(anchor);
   divContainer.appendChild(divDesc);
   divDesc.appendChild(para);
+  divContainer.appendChild(divExit);
+  divExit.appendChild(btn);
+  document.getElementById("inputBox").value = "";
 }
 
 //Used to change the HTML page layout upon pressing a radio button.
@@ -248,4 +274,36 @@ function changeLayout(){
   }
 }
 
-defaultJSON();
+function eventListener(){
+  //Event delegation for onclick div elements.
+  document.getElementById("mainContainer").addEventListener("click", function(e) {
+    if(e.target && e.target.matches("button.exitBtn") ){
+      //Variable used to delete div container pertaining to button clicked.
+      var parentDiv = e.target.parentNode.parentNode.id;
+      //Deleting parent div on clicking the x button.
+      deleteDiv(parentDiv);
+    }
+  });
+}
+
+function deleteDiv(id){
+  console.log(id);
+  num--;
+  if(num < 1){
+    document.getElementById("searchBar").style.display = "none";
+  }
+  document.getElementById(id).remove();
+}
+
+function hideDiv(){
+
+}
+
+function hideMultipleDivs(){
+
+}
+
+
+window.onload = function(){
+  defaultJSON();
+}

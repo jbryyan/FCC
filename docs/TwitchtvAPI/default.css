@@ -39,6 +39,8 @@ header{
   table-layout: fixed;
 }
 
+
+
 .streamMod{
   margin-top: 10px;
 }
@@ -69,6 +71,14 @@ header{
   padding: 10px;
 }
 
+.exitDiv{
+  display: table-cell;
+  width: 5%;
+}
+
+.exitBtn{
+  float: right;
+}
 /*Ellipsis to cut off description text*/
 #desc0{
   white-space: nowrap;

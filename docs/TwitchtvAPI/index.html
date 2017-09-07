@@ -7,11 +7,15 @@
   </head>
   <body>
     <div class="container" id="mainContainer">
-      <header>
+      <header id="mainHeader">
         <h1>Twitch Streamers</h1>
         <form onsubmit="searchTwitch(); return false;">
           <input class="inputBox" id ="inputBox" type="text" placeholder="Add Streamer" required>
           <input class="button" id="inputButton" type="submit" value="Add">
+        </form>
+        <form id="searchBar" onsubmit="searchStreamer(); return false;">
+          <input class="inputBox" id="inputBar" type="text" placeholder="Search Streamer" required>
+          <input class="button" id="searchButton" type="submit" value="Search">
         </form>
         <form class="radioForm" onclick="changeLayout();">
           <input class="radio" type="radio" name="rad" value="All" checked>All
@@ -28,6 +32,9 @@
         </div>
         <div class="descContainer tableMod"> <!-- Contains description of stream -->
             <p class="text" id="desc0"></p>
+        </div>
+        <div class="exitDiv">
+          <button type="button" class="exitBtn" id="btn0">x</button>
         </div>
       </div> <!-- End Stream Info Container -->
     </div> <!-- End Container -->
