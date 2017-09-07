@@ -1,0 +1,78 @@
+body{
+  background-color: grey;
+}
+
+a{
+  text-decoration: none;
+}
+
+h1{
+  margin: 0;
+}
+header{
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.online{
+  background-color: green;
+}
+
+.offline{
+  background-color: red;
+}
+
+.container{
+  width: 60%;
+  margin: 0 auto;
+  background: pink;
+}
+
+.streamContainer{
+  background-color: white;
+  width: 100%;
+  height: 70px;
+  /*Using table cells*/
+  display: table;
+  /*Used to keep description text from wrapping*/
+  table-layout: fixed;
+}
+
+.streamMod{
+  margin-top: 10px;
+}
+
+/*Table mod used for all table-cells. Centers content*/
+.tableMod{
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.imageContainer{
+
+}
+
+.image{
+  height: 50px;
+  border-radius: 50%;
+}
+
+.titleContainer{
+
+}
+
+.descContainer{
+
+  width: 55%;
+  padding: 10px;
+}
+
+/*Ellipsis to cut off description text*/
+#desc0{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="default.css"/>
+<html>
+  <head>
+    <title>Twitch Streamers</title>
+    <script type="text/javascript" src="main.js"></script>
+  </head>
+  <body>
+    <div class="container" id="mainContainer">
+      <header>
+        <h1>Twitch Streamers</h1>
+        <form onsubmit="searchTwitch(); return false;">
+          <input class="inputBox" id ="inputBox" type="text" placeholder="Add Streamer" required>
+          <input class="button" id="inputButton" type="submit" value="Add">
+        </form>
+        <form class="radioForm" onclick="changeLayout();">
+          <input class="radio" type="radio" name="rad" value="All" checked>All
+          <input class="radio" type="radio" name="rad" value="Online"> Online
+          <input class="radio" type="radio" name="rad" value="Offline">Offline
+        </form>
+      </header>
+      <div class="streamContainer streamMod" id="preLoad">
+        <div class="imageContainer tableMod" id="imgContainer0"> <!-- Container for stream logo -->
+          <!-- <img class="image" id="img1" src=""/> -->
+        </div>
+        <div class="titleContainer tableMod" id="titleContainer0">  <!-- Link to streamer -->
+          <!-- a href="link to stream" id="uniqueID"> streamer name </a> -->
+        </div>
+        <div class="descContainer tableMod"> <!-- Contains description of stream -->
+            <p class="text" id="desc0"></p>
+        </div>
+      </div> <!-- End Stream Info Container -->
+    </div> <!-- End Container -->
+  </body>
+
+</html>
