@@ -253,10 +253,10 @@ function createDivs(streamData, endPoint){
 
   if(endPoint == "channels"){
     wrapper.style.backgroundColor = "grey"; //Offline
-    alert("offline");
+
   }else{
     wrapper.style.backgroundColor = "#dff0d8"; //Online
-    alert("Online");
+
   }
 
   //Adding image div info.
@@ -334,13 +334,11 @@ function showVideo(parentId){
   iFrame.backgroundColor = "white;"
   divVideo.appendChild(iFrame);
   //After appending the video, turn the carrot upwards.
-  console.log(num);
   document.getElementById("caret" + parentId.match(/\d+/)[0]).className = ("fa fa-caret-up fa-lg aria-hidden='true'");
 }
 
 function deleteVideo(iframe){
   document.getElementById(iframe).remove();
-  console.log(iframe);
   var numID = iframe.match(/\d+/)[0];
   document.getElementById("caret" + numID).className = ("fa fa-caret-down fa-lg aria-hidden='true'");
 
@@ -375,15 +373,13 @@ function eventListener(){
     else if(e.target && e.target.matches("i.fa-caret-down") ){
       //Variable used to determined video element to show appropriate streamer.
       var parentId = e.target.parentNode.id;
-      console.log(parentId);
       //Appending video to page.
       showVideo(parentId);
     }
     else if(e.target && e.target.matches("i.fa-caret-up") ) {
       var caret = e.target.id;
-      console.log(caret);
       var iframe = "iframe" + caret.match(/\d+/)[0];
-      console.log(iframe);
+
       deleteVideo(iframe);
     }
 
