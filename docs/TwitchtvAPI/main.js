@@ -320,7 +320,7 @@ function showVideo(parentId){
   //var titleDiv = document.getElementById("title" + num);
   var divTitle = "title" + numID;
   var twitchUser = document.getElementById(divTitle).innerHTML;
-  var url = "http://player.twitch.tv/?channel=" + twitchUser + "&muted=true&autoplay=false";
+  var url = "https://player.twitch.tv/?channel=" + twitchUser + "&muted=true&autoplay=false";
   var iFrame = document.createElement("iframe");
   iFrame.style.display = "block";
   iFrame.style.width = "100%";
