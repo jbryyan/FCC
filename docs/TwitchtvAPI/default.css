@@ -1,5 +1,5 @@
 body{
-  background-color: grey;
+  background-image: linear-gradient(to right, #ccf, #cfc);
 }
 
 a{
@@ -13,6 +13,11 @@ header{
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+  margin-bottom: 30px;
+}
+
+iframe{
+  background-color: white;
 }
 
 .online{
@@ -20,30 +25,63 @@ header{
 }
 
 .offline{
-  background-color: red;
+  background-color: grey;
 }
 
 .container{
   width: 60%;
   margin: 0 auto;
-  background: pink;
+}
+.inputBox{
+  width: 30%;
+  margin-top: 10px;
+  height: 30px;
+  border: 1px solid black;
+  font-size: 20px;
+}
+.button{
+  border: 1px solid black;
+  background-color: #286090;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+}
+#inputBar{
+  margin-left: 18px;
 }
 
+.radio{
+  margin-top: 30px;
+}
+.wrapper{
+  display: table;
+  /*margin-top: -10px;*/
+
+  border: 1px solid black;
+}
 .streamContainer{
-  background-color: white;
   width: 100%;
-  height: 70px;
+  /* height: 70px; */
+  height: 100%;
   /*Using table cells*/
   display: table;
   /*Used to keep description text from wrapping*/
   table-layout: fixed;
 }
 
-
-
-.streamMod{
-  margin-top: 10px;
+.videoContainer{
+  display: table-row;
+  width: 100%;
+  height: 1%;
+  text-align: center;
 }
+
+/*
+iframe{
+  width: 100%;
+  display: none;
+}
+*/
 
 /*Table mod used for all table-cells. Centers content*/
 .tableMod{
@@ -72,12 +110,19 @@ header{
 }
 
 .exitDiv{
+
   display: table-cell;
   width: 5%;
 }
 
 .exitBtn{
   float: right;
+}
+
+.videoContainer{
+  display: table-row;
+  text-align: center;
+  width: 100%;
 }
 /*Ellipsis to cut off description text*/
 #desc0{

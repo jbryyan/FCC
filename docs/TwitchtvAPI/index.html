@@ -4,6 +4,7 @@
   <head>
     <title>Twitch Streamers</title>
     <script type="text/javascript" src="main.js"></script>
+    <script src="https://use.fontawesome.com/2d855ccd2c.js"></script>
   </head>
   <body>
     <div class="container" id="mainContainer">
@@ -18,25 +19,30 @@
           <input class="button" id="searchButton" type="submit" value="Search">
         </form>
         <form class="radioForm" onclick="changeLayout();">
-          <input class="radio" type="radio" name="rad" value="All" checked>All
+          <input class="radio" id="allRadio" type="radio" name="rad" value="All" checked>All
           <input class="radio" type="radio" name="rad" value="Online"> Online
           <input class="radio" type="radio" name="rad" value="Offline">Offline
         </form>
       </header>
-      <div class="streamContainer streamMod" id="preLoad">
-        <div class="imageContainer tableMod" id="imgContainer0"> <!-- Container for stream logo -->
-          <!-- <img class="image" id="img1" src=""/> -->
+      <div class="wrapper" id="wrapper0">
+        <div class="streamContainer" id="divCont0">
+          <div class="imageContainer tableMod" id="imgContainer0"> <!-- Container for stream logo -->
+            <!-- <img class="image" id="img1" src=""/> -->
+          </div>
+          <div class="titleContainer tableMod" id="titleContainer0">  <!-- Link to streamer -->
+            <!-- a href="link to stream" id="uniqueID"> streamer name </a> -->
+          </div>
+          <div class="descContainer tableMod"> <!-- Contains description of stream -->
+              <p class="text" id="desc0"></p>
+          </div>
+          <div class="exitDiv">
+            <button type="button" class="exitBtn" id="btn0">x</button>
+          </div>
+        </div> <!-- End Stream Info Container -->
+        <div class="videoContainer" id="showVideo0">
+          <i class="fa fa-caret-down fa-lg aria-hidden='true'" id="caret0"></i>
         </div>
-        <div class="titleContainer tableMod" id="titleContainer0">  <!-- Link to streamer -->
-          <!-- a href="link to stream" id="uniqueID"> streamer name </a> -->
-        </div>
-        <div class="descContainer tableMod"> <!-- Contains description of stream -->
-            <p class="text" id="desc0"></p>
-        </div>
-        <div class="exitDiv">
-          <button type="button" class="exitBtn" id="btn0">x</button>
-        </div>
-      </div> <!-- End Stream Info Container -->
+      </div> <!-- End Wrapper -- >
     </div> <!-- End Container -->
   </body>
 
