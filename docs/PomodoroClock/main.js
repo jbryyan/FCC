@@ -65,5 +65,11 @@ function startCountdown(seconds, display){
 }
 
 var display = function(seconds){
-  console.log(seconds);
+  var minutes = parseInt(seconds/60) + ":00";
+  var screenMinutes = document.getElementById("countdown").innerHTML;
+  //console.log(minutes.substring(0,2));
+  //console.log(screenMinutes.substring(0,2));
+  if(minutes.substring(0, 2) != screenMinutes.substring(0, 2)){
+    
+  }
 };
