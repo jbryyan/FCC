@@ -1,4 +1,8 @@
-
+.pageHeader{
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+}
 .container{
   width: 500px;
   text-align: center;
@@ -16,6 +20,7 @@
 .screenTimer{
   font-size: 80px;
   display: inline-flex;
+  padding: 20px;
 }
 
 .userModify{

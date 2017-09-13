@@ -2,8 +2,8 @@
 console.log("yes");
 
 var interval;
-var isPaused = false;
-var savedMin;
+var isPaused = false, startedTimer = false;
+var savedMin = 0, savedSec = 0;
 
 window.onload = function(){
   document.getElementById("container").addEventListener("click", function(e){
@@ -28,13 +28,22 @@ function buttonPressed(buttonId){
         isPaused = false;
         break;
       }
-      remainingTime = savedMin * 60; //Total time in seconds.
+      if(!savedSec && !savedMin){
+        break;
+      }
+      if(startedTimer){
+        break;
+      }
+      startedTimer = true;
+      //remainingTime = savedMin * 60; //Total time in seconds.
       //Function to start timer.
-      startTimer(remainingTime, screenTimer);
+      modifyUpDownButtons("hide");
+      startTimer(screenTimer);
       //setupCountdown(screenTimer);
       break;
     case("reset"):
       isPaused = false;
+      modifyUpDownButtons("visible");
       resetTimer(screenTimer);
       break;
     case("pause"):
@@ -43,18 +52,22 @@ function buttonPressed(buttonId){
     case("task25"):
       screenTimer.innerHTML = "25:00";
       savedMin = 25;
+      savedSec = "00";
       break;
     case("task55"):
       screenTimer.innerHTML = "55:00";
       savedMin= 55;
+      savedSec = "00";
       break;
     case("break5"):
       screenTimer.innerHTML = "05:00";
       savedMin = 5;
+      savedSec = "00";
       break;
     case("break15"):
       screenTimer.innerHTML = "15:00";
       savedMin = 5;
+      savedSec = "00";
       break;
     case("plusMin"):
       addSub("plusMin");
@@ -70,10 +83,10 @@ function buttonPressed(buttonId){
   }
 }
 
-function startTimer(duration, display){
-  var timer = duration; //Total time to countdown from.
+function startTimer(display){
+  var timer = parseInt(savedMin, 10)*60 + parseInt(savedSec, 10); //Total time to countdown from.
   var minutes;  //To store minutes left.
-  var seconds;  //To store seconds left.
+  var seconds;  //To store seconds left
 
   interval = setInterval(function(){
     if(isPaused){
@@ -94,57 +107,87 @@ function startTimer(duration, display){
   }, 1000);
 }
 
+function modifyUpDownButtons(type){
+
+  var userButtons = document.getElementsByClassName("userModify");
+
+  if(type == "hide"){
+    for(var i = 0; i < userButtons.length; i++){
+      userButtons[i].style.visibility = "hidden";
+      console.log("Hidden");
+    }
+  }else{
+    for(var i = 0; i < userButtons.length; i++){
+      userButtons[i].style.visibility = "visible";
+    }
+  }
+}
+
 function resetTimer(screenTimer){
   clearInterval(interval);
-  if(savedMin < 10){
-    screenTimer.innerHTML = "0" + savedMin + ":00";
-    return;
-  }
-  screenTimer.innerHTML = savedMin + ":00";
+  startedTimer = false;
+  //if(parseInt(savedMin) < 10){
+    //screenTimer.innerHTML = savedMin + ":" + savedSec;
+    //return;
+  //}
+  screenTimer.innerHTML = savedMin + ":" + savedSec;
 }
 
 function addSub(type){
   var display = document.getElementById("countdown");
-  var savedSec = parseInt(display.innerHTML.substring(3, 5), 10);
-  var savedMin = parseInt(display.innerHTML.substring(0, 2), 10);
+  var localSavedSec = parseInt(display.innerHTML.substring(3, 5), 10);
+  var localSavedMin = parseInt(display.innerHTML.substring(0, 2), 10);
   var modifiedSec;
   switch(type){
     case("plusMin"):
-      savedMin = parseInt(display.innerHTML.substring(0,2), 10) + 1;
-      savedMin < 10 ? savedMin = "0" + savedMin : savedMin;
-      display.innerHTML = savedMin + ":" + modifiedSec;
+      localSavedMin++;
+      localSavedMin < 10 ? localSavedMin = "0" + localSavedMin : localSavedMin;
+      localSavedSec < 10 ? localSavedSec = "0" + localSavedSec : localSavedSec;
+      display.innerHTML = localSavedMin + ":" + localSavedSec;
+      savedMin = localSavedMin;
+      savedSec = localSavedSec;
       break;
-    case("minusMin"):
 
-      if(parseInt(display.innerHTML.substring(0, 2), 10) == 0){ break;}
-      savedMin = parseInt(display.innerHTML.substring(0, 2), 10) - 1;
-      savedMin < 10 ? savedMin = "0" + savedMin : savedMin;
-      display.innerHTML = savedMin + modifiedSec;
-      break;
-    case("plusSec"):
-      var savedSec = parseInt(display.innerHTML.substring(3,5), 10);
-      console.log(savedSec);
-      modifiedSec = savedSec + 1;
-      modifiedSec < 10 ? modifiedSec = "0" + modifiedSec : modifiedSec;
-      if (modifiedSec > 59){
-        modifiedSec = "00";
-        if(savedMin < 10){
-          savedMin = "0" + (savedMin + 1);
-        }else{
-          savedMin = savedMin + 1;
-        }
-      }else if(savedMin == 0){
-        display.innerHTML = "00:" + modifiedSec;
+    case("minusMin"):
+      if(localSavedMin == 0){
         break;
       }
-      display.innerHTML = savedMin + ":" + modifiedSec;
+      localSavedMin--;
+      localSavedMin < 10 ? localSavedMin = "0" + localSavedMin : localSavedMin;
+      localSavedSec < 10 ? localSavedSec = "0" + localSavedSec : localSavedSec;
+      display.innerHTML = localSavedMin + ":" + localSavedSec;
+      savedMin = localSavedMin;
+      savedSec = localSavedSec;
       break;
+
+    case("plusSec"):
+      localSavedSec++;
+      if(localSavedSec > 59){
+        localSavedSec = 0;
+        localSavedMin++;
+      }
+      localSavedSec < 10 ? localSavedSec = "0" + localSavedSec : localSavedSec;
+      localSavedMin < 10 ? localSavedMin = "0" + localSavedMin : localSavedMin;
+      display.innerHTML = localSavedMin + ":" + localSavedSec;
+      savedMin = localSavedMin;
+      savedSec = localSavedSec;
+      break;
+
     case("minusSec"):
-      modifiedSec--;
-      //savedMin < 0 && modifiedSec > 0 ?
-      console.log(modifiedSec);
-      modifiedSec < 0 ? modifiedSec = 59 : modifiedSec;
-      display.innerHTML = savedMin + ":" + modifiedSec;
+      console.log("In minus");
+      if(localSavedSec == 0 && localSavedMin == 0){
+        break;
+      }
+      localSavedSec--;
+      if(localSavedSec < 0 && localSavedMin > 0){
+        localSavedMin--;
+        localSavedSec = 59;
+      }
+      localSavedSec < 10 ? localSavedSec = "0" + localSavedSec : localSavedSec;
+      localSavedMin < 10 ? localSavedMin = "0" + localSavedMin : localSavedMin;
+      display.innerHTML = localSavedMin + ":" + localSavedSec;
+      savedMin = localSavedMin;
+      savedSec = localSavedSec;
       break;
 
   }
