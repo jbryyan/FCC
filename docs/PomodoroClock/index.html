@@ -9,7 +9,7 @@
   <body>
     <header>
       <p>Pomodoro Timer</p>
-    <header>
+    </header>
     <div class="container" id="container">
       <header class="timerButtons">
         <button class="timerSet" id="task25">25 Min. Task</button>
@@ -17,10 +17,16 @@
         <button class="timerSet" id="break5">5 Min. Break</button>
         <button class="timerSet" id="break15">15 Min. Break</button>
       </header>
-      <div class="screenTimer timerButtons">
-        <button class="userModify" id="plus">-</button>
-        <p id="countdown">00:00</p>
-        <button class="userModify" id="minus">+</button>
+      <div class="screenTimer">
+        <div class="timerButtons">
+          <button class="userModify" id="plusMin">+</button>
+          <button class="userModify" id="minusMin">-</button>
+        </div>
+        <div id="countdown">00:00</div>
+        <div class="timerButtons">
+          <button class="userModify" id="plusSec">+</button>
+          <button class="userModify" id="minusSec">-</button>
+        </div>
       </div>
       <footer class="timerButtons">
         <button class="timerSet" id="start">Start</button>
