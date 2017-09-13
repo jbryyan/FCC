@@ -4,6 +4,7 @@ console.log("yes");
 var interval;
 var isPaused = false, startedTimer = false;
 var savedMin = 0, savedSec = 0;
+var audio = new Audio("./sound/analog-watch-alarm_daniel-simion.wav");
 
 window.onload = function(){
   document.getElementById("container").addEventListener("click", function(e){
@@ -27,11 +28,11 @@ function buttonPressed(buttonId){
       if(isPaused){
         isPaused = false;
         break;
-      }
-      if(!savedSec && !savedMin){
+      }else if(!savedSec && !savedMin){
         break;
-      }
-      if(startedTimer){
+      }else if(startedTimer){
+        break;
+      }else if(screenTimer.innerHTML == "00:00"){
         break;
       }
       startedTimer = true;
@@ -103,6 +104,7 @@ function startTimer(display){
     //If end of time, stop interval.
     if(timer < 0){
       clearInterval(interval);
+      audio.play();
     }
   }, 1000);
 }
@@ -110,16 +112,24 @@ function startTimer(display){
 function modifyUpDownButtons(type){
 
   var userButtons = document.getElementsByClassName("userModify");
+  var resetButton = document.getElementById("reset");
+  var pauseButton = document.getElementById("pause");
+  var startButton = document.getElementById("start");
 
   if(type == "hide"){
     for(var i = 0; i < userButtons.length; i++){
       userButtons[i].style.visibility = "hidden";
       console.log("Hidden");
     }
+    resetButton.style.visibility = "visible";
+    pauseButton.style.visibility = "visible";
   }else{
     for(var i = 0; i < userButtons.length; i++){
       userButtons[i].style.visibility = "visible";
     }
+    resetButton.style.visibility = "hidden";
+    pauseButton.style.visibility = "hidden";
+
   }
 }
 
@@ -130,6 +140,8 @@ function resetTimer(screenTimer){
     //screenTimer.innerHTML = savedMin + ":" + savedSec;
     //return;
   //}
+  audio.pause();
+  audio.currentTime = 0;
   screenTimer.innerHTML = savedMin + ":" + savedSec;
 }
 

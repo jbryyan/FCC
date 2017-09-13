@@ -3,18 +3,41 @@
   font-size: 50px;
   font-weight: bold;
 }
+body{
+  background-color: pink !important;
+}
 .container{
   width: 500px;
   text-align: center;
-  background-color: pink;
+  border: 1px solid grey;
   margin: 0 auto;
+  background-color: white;
 }
-
+.timerHeader{
+  padding: 5px;
+  border-bottom: 1px solid grey;
+  background-color: #f5f5f5;
+}
+.createdBy{
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+a{
+  text-decoration: none;
+}
+.timerFooter{
+  padding: 5px;
+  border-top: 1px solid grey;
+  background-color: #f5f5f5;
+}
 .timerSet{
   width: 100px;
   height: 50px;
   display: inline-block;
-  background-color: red;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid grey;
 }
 
 .screenTimer{
@@ -28,8 +51,26 @@
   font-size: 50px;
   display: block;
   width: 45px;
+  background-color: white;
 }
 
 #countdown{
   margin: auto 5px;
+}
+
+#reset{
+  visibility: hidden;
+  background-color: #d9534f;
+  color: white;
+}
+
+#pause{
+  visibility: hidden;
+  background-color: #f0ad4e;
+  color: white;
+}
+
+#start{
+  background-color: #337ab7;
+  color: white;
 }

@@ -4,37 +4,51 @@
   <head>
     <title>Pomodoro Clock</title>
     <script type="text/javascript" src="main.js"></script>
+    <script src="https://use.fontawesome.com/2d855ccd2c.js"></script>
   </head>
 
   <body>
     <header class="pageHeader">
       <p>Pomodoro Timer</p>
+
     </header>
     <div class="container" id="container">
-      <header class="timerButtons">
-        <button class="timerSet" id="task25">25 Min. Task</button>
-        <button class="timerSet" id="task55">55 Min. Task</button>
-        <button class="timerSet" id="break5">5 Min. Break</button>
-        <button class="timerSet" id="break15">15 Min. Break</button>
+      <header class="timerHeader">
+        <button class="timerSet task" id="task25">25 Min. Task</button>
+        <button class="timerSet task" id="task55">55 Min. Task</button>
+        <button class="timerSet break" id="break5">5 Min. Break</button>
+        <button class="timerSet break" id="break15">15 Min. Break</button>
       </header>
       <div class="screenTimer">
-        <div class="timerButtons">
+        <div class="userButtons">
           <button class="userModify" id="plusMin">+</button>
           <button class="userModify" id="minusMin">-</button>
         </div>
         <div id="countdown">00:00</div>
-        <div class="timerButtons">
+        <div class="userButtons">
           <button class="userModify" id="plusSec">+</button>
           <button class="userModify" id="minusSec">-</button>
         </div>
       </div>
-      <footer class="timerButtons">
-        <button class="timerSet" id="reset">Reset</button>
-        <button class="timerSet hideStart" id="start">Start</button>
-        <button class="timerSet" id="pause">Pause</button>
+      <footer class="timerFooter">
+        <button class="timerSet" id="reset">
+          <i class="fa fa-repeat" aria-hidden="true"></i>
+          Reset
+        </button>
+        <button class="timerSet hideStart" id="start">
+          <i class="fa fa-play" aria-hidden="true"></i>
+          Start
+        </button>
+        <button class="timerSet" id="pause">
+          <i class="fa fa-pause" aria-hidden="true"></i>
+          Pause
+        </button>
       </footer>
     </div>
-
+    <div class="createdBy">
+      <p>Created by: Bryan J.</p>
+      <a href="https://github.com/jbryyan/FCC/tree/master/docs/PomodoroClock">GitHub repo</a>
+    </div>
   </body>
 
 
